@@ -38,7 +38,7 @@ If you see the stars (✨ 🌟 ✨), then the installation went well!
 
 Alternatively, you can use `pipx` (v0.15.5+) to install directly from git, with the command:
 ```
-pipx install git+https://github.com/ggirelli/radiantkit.git --force
+pipx install git+https://github.com/claireleblanc/radiantkit.git --force
 ```
 
 ## Usage
