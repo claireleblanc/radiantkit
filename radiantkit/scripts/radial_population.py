@@ -362,18 +362,18 @@ def run(args: argparse.Namespace) -> None:
     confirm_arguments(args)
     argtools.dump_args(args, __OUTPUT__["args"])
     io.add_log_file_handler(os.path.join(args.input, __OUTPUT__["log"]))
-    args, series_list = series.init_series_list(args)
+    args, series_list = series.init_series_list(args) #series list is object of type series
 
     logging.info("extracting nuclei")
-    series_list.extract_particles(particle.Nucleus, threads=args.threads)
+    series_list.extract_particles(particle.Nucleus, threads=args.threads) #This seems important!
     logging.info(f"extracted {len(list(series_list.particles()))} nuclei")
 
     logging.info("generating radial profiles")
-    rdc = distance.RadialDistanceCalculator(args.axes, args.center_type, args.quantile)
+    rdc = distance.RadialDistanceCalculator(args.axes, args.center_type, args.quantile) #This also seems important
     profiles = series_list.get_radial_profiles(
         rdc, args.bins, args.degree, threads=args.threads
-    )
-
+    ) #I want to see what profiles is
+   
     export_profiles(args, profiles)
     series.pickle_series_list(args, series_list)
 
