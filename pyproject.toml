@@ -5,8 +5,8 @@ description = "Radial Image Analysis Toolkit"
 authors = ["Gabriele Girelli <gigi.ga90@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/ggirelli/radiantkit"
-repository = "https://github.com/ggirelli/radiantkit"
+homepage = "https://github.com/claireleblanc/radiantkit"
+repository = "https://github.com/claireleblanc/radiantkit"
 keywords = ["microscopy", "image", "analysis", "bioimaging", "nucleus", "segmentation", "conversion"]
 classifiers = [
     "Development Status :: 4 - Beta",
