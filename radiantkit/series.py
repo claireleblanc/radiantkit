@@ -597,11 +597,11 @@ class SeriesList(object):
                 self.__prep_single_channel_profile(
                     channel_name, rdc, True, nbins, deg, threads, reInit
                 )
+            )
             profiles.update( #ADDED ALL
                 self.__prep_single_channel_profile( #get single channel
                     channel_name, rdc, False, nbins, deg, threads, reInit
                 )
-            )
             )
         return profiles
 
