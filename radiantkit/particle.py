@@ -169,15 +169,20 @@ class Nucleus(Particle):
         assert distances is not None
         self._lamina_dist, self._center_dist = distances
 
-    def get_intensity_at_distance(
-        self, img: ImageGrayScale, ref: Optional[ImageGrayScale] = None
+    def get_intensity_at_distance( #CHANGED
+        self, img: ImageGrayScale, img2: ImageGrayScale, ref: Optional[ImageGrayScale] = None
     ) -> pd.DataFrame:
         assert self._lamina_dist is not None and self._center_dist is not None
+        
+        #ADDED
+        global_threshold = threshold_otsu(img2.pixels)
+        img2_segment = img.threshold_global(global_threshold) #makes true or false!!
 
         df = pd.DataFrame.from_dict(
             dict(
                 ivalue=self._region_of_interest.apply(img)[self.pixels],
                 lamina_dist=self._lamina_dist[self.pixels],
+                ivalue_tmr = self._region_of_interest.apply(img2_segment)[self.pixels], #ADDED
                 center_dist=self._center_dist[self.pixels],
             )
         )
