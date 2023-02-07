@@ -281,10 +281,19 @@ def array_cells_distance_to_point(
     else:
         raise ValueError
 
-
+#ADDED z and tmr args
 def radial_fit(
-    x: np.ndarray, y: np.ndarray, nbins: int = 200, deg: int = 5
+    x: np.ndarray, y: np.ndarray, z: np.ndarray, tmr: bool, nbins: int = 200, deg: int = 5
 ) -> Tuple[PolyFitResult, pd.DataFrame]:
+    #ADDED
+    if tmr: 
+        xnew = x[z]
+        ynew = y[z]
+    else: 
+        z2 = np.invert(z)
+        xnew = x[z2]
+        ynew = y[z2]
+        
     bins = np.linspace(x.min(), x.max(), nbins)
     bin_IDs = np.digitize(x, bins) - 1
 
