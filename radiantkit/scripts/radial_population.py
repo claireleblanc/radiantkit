@@ -359,6 +359,7 @@ def export_profiles(
 
 
 def run(args: argparse.Namespace) -> None:
+    print("here!!!!!!!")
     confirm_arguments(args)
     argtools.dump_args(args, __OUTPUT__["args"])
     io.add_log_file_handler(os.path.join(args.input, __OUTPUT__["log"]))
