@@ -494,6 +494,7 @@ class SeriesList(object):
         self,
         channel_name: ChannelName,
         rdc: RadialDistanceCalculator,
+        tmr: bool = True, #ADDED
         nbins: int = 200,
         deg: int = 5,
         threads: int = 1,
@@ -515,23 +516,29 @@ class SeriesList(object):
         logging.info("fitting polynomial curve")
         profiles = [
             (
-                channel_name,
+                channel_name+ "-" + str(tmr), #ADDED
                 dict(
                     lamina_dist=stat.radial_fit(
                         channel_intensity_data["lamina_dist"],
                         channel_intensity_data["ivalue"],
+                        channel_intensity_data["ivalue_tmr"], #ADDED
+                        tmr, #ADDED
                         nbins,
                         deg,
                     ),
                     center_dist=stat.radial_fit(
                         channel_intensity_data["center_dist"],
                         channel_intensity_data["ivalue"],
+                        channel_intensity_data["ivalue_tmr"], #ADDED
+                        tmr, #ADDED
                         nbins,
                         deg,
                     ),
                     lamina_dist_norm=stat.radial_fit(
                         channel_intensity_data["lamina_dist_norm"],
                         channel_intensity_data["ivalue"],
+                        channel_intensity_data["ivalue_tmr"], #ADDED
+                        tmr, #ADDED
                         nbins,
                         deg,
                     ),
@@ -543,23 +550,29 @@ class SeriesList(object):
             logging.info("fitting normalized polynomial curve")
             profiles.append(
                 (
-                    f"{channel_name}_over_ref",
+                    f"{channel_name}_over_ref"+ "-" + str(tmr), #ADDED
                     dict(
                         lamina_dist=stat.radial_fit(
                             channel_intensity_data["lamina_dist"],
                             channel_intensity_data["ivalue_norm"],
+                            channel_intensity_data["ivalue_tmr"], #ADDED
+                            tmr, #ADDED
                             nbins,
                             deg,
                         ),
                         center_dist=stat.radial_fit(
                             channel_intensity_data["center_dist"],
                             channel_intensity_data["ivalue_norm"],
+                            channel_intensity_data["ivalue_tmr"], #ADDED
+                            tmr, #ADDED
                             nbins,
                             deg,
                         ),
                         lamina_dist_norm=stat.radial_fit(
                             channel_intensity_data["lamina_dist_norm"],
                             channel_intensity_data["ivalue_norm"],
+                            channel_intensity_data["ivalue_tmr"], #ADDED
+                            tmr, #ADDED
                             nbins,
                             deg,
                         ),
@@ -579,10 +592,16 @@ class SeriesList(object):
     ) -> RadialProfileData:
         profiles: RadialProfileData = {}
         for channel_name in track(self.channel_names, description="channel"):
-            profiles.update(
+            
+            profiles.update( #ADDED TRUE ARG
                 self.__prep_single_channel_profile(
-                    channel_name, rdc, nbins, deg, threads, reInit
+                    channel_name, rdc, True, nbins, deg, threads, reInit
                 )
+            profiles.update( #ADDED ALL
+                self.__prep_single_channel_profile( #get single channel
+                    channel_name, rdc, False, nbins, deg, threads, reInit
+                )
+            )
             )
         return profiles
 
