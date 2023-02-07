@@ -19,6 +19,8 @@ from skimage.measure import marching_cubes_lewiner  # type: ignore
 from skimage.measure import mesh_surface_area
 from skimage.morphology import convex_hull_image  # type: ignore
 from typing import Any, Dict, List, Optional, Tuple, Type
+from skimage.filters import threshold_otsu #ADDED
+
 
 
 class ParticleBase(ImageBinary):
