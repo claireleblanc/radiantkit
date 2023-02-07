@@ -178,13 +178,13 @@ class Series(ChannelList):
         if self.reference is not None and self.reference != channel_name:
             for p in self._particles:
                 tabulated_details = p.get_intensity_at_distance(
-                    self[channel_name][1], self[self.reference][1]
+                    self[channel_name][1], self["tmr"][1], self[self.reference][1] #ADDED
                 )
                 particle_details.append(tabulated_details)
             self.unload(self.reference)
         else:
             for p in self._particles:
-                tabulated_details = p.get_intensity_at_distance(self[channel_name][1])
+                tabulated_details = p.get_intensity_at_distance(self[channel_name][1], self["tmr"][1]) #ADDED
                 particle_details.append(tabulated_details)
         df = pd.concat(particle_details)
         self.unload(channel_name)
